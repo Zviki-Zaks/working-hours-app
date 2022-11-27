@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import CustomTooltip from "../components/common/CustomTooltip";
 import { FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import CustomMenu from "../components/common/CustonMenu";
+import CustomMenu from "../components/common/CustomMenu";
 
 const AppHeader = () => {
   return (
