@@ -6,6 +6,7 @@ import RequireAuthRoute from "./routing/RequireAuthRoute";
 import MainLayout from "./routing/MainLayout";
 import { mainRoutes, publicRoutes } from "./routing/routes";
 import EmptyLayout from "./routing/EmptyLayout";
+import PublicRoute from "./routing/PublicRoute";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,15 @@ function App() {
             >
               {mainRoutes}
             </Route>
-            <Route element={<EmptyLayout />}>{publicRoutes}</Route>
+            <Route
+              element={
+                <PublicRoute>
+                  <EmptyLayout />
+                </PublicRoute>
+              }
+            >
+              {publicRoutes}
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
