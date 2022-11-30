@@ -3,6 +3,7 @@ import CustomTooltip from "../components/common/CustomTooltip";
 import { FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import CustomMenu from "../components/common/CustomMenu";
+import { logOut } from "../firebase/firebase.auth";
 
 const AppHeader = () => {
   return (
@@ -19,7 +20,7 @@ const AppHeader = () => {
       >
         <ul>
           <li>הפרופיל שלי</li>
-          <li>התנתק</li>
+          <li onClick={logOut}>התנתק</li>
         </ul>
       </CustomTooltip>
       <CustomMenu
