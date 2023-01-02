@@ -1,12 +1,19 @@
 export interface BackdropProps {
   onClose: () => void;
+  className?: string;
   children: React.ReactNode;
 }
 
-const Backdrop: React.FC<BackdropProps> = ({ children, onClose }) => {
+const Backdrop: React.FC<BackdropProps> = ({
+  children,
+  onClose,
+  className,
+}) => {
   return (
     <section
-      className="fixed inset-0 z-10 h-screen w-screen overflow-hidden bg-transparent"
+      className={`${
+        className ?? ""
+      } fixed inset-0 z-10 h-screen w-screen overflow-hidden bg-transparent`}
       onClick={onClose}
     >
       {children}

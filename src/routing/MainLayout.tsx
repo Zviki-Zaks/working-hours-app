@@ -3,6 +3,7 @@ import CustomTooltip from "../components/common/CustomTooltip";
 import { FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import CustomMenu from "../components/common/CustomMenu";
+import { logOut } from "../firebase/firebase.auth";
 
 const AppHeader = () => {
   return (
@@ -19,7 +20,7 @@ const AppHeader = () => {
       >
         <ul>
           <li>הפרופיל שלי</li>
-          <li>התנתק</li>
+          <li onClick={logOut}>התנתק</li>
         </ul>
       </CustomTooltip>
       <CustomMenu
@@ -50,9 +51,11 @@ const AppNav = () => {
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <AppHeader />
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
     </div>
   );
 };
