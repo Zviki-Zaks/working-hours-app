@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 import { auth } from "../../firebase/firebase.config";
-import { getUser } from "../../firebase/firebase.users";
-import { UserInfo } from "../../model/user-model";
+import type { UserInfo } from "../../model/user-model";
+import { getUserInfo } from "../../services/user.service";
 
 export const userInfoAtom = atom<UserInfo | null>({
   key: "userInfoAtom",
@@ -9,9 +9,9 @@ export const userInfoAtom = atom<UserInfo | null>({
     key: "userInfoAtom/default",
     get: async () => {
       try {
-        const isTokenExist = await auth.currentUser?.getIdToken();
-        if (isTokenExist && auth.currentUser) {
-          const userInfo = await getUser(auth.currentUser.uid);
+        const idToken = await auth.currentUser?.getIdToken();
+        if (idToken) {
+          const userInfo = await getUserInfo();
           if (!userInfo) {
             auth.signOut();
           }

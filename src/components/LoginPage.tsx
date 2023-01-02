@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useRecoilCallback } from "recoil";
-import { createUser, singIn, updateAuthInfo } from "../firebase/firebase.auth";
-import { addUser } from "../firebase/firebase.users";
-import { AuthInfo } from "../model/user-model";
+import { signUp, logIn, updateAuthInfo } from "../firebase/firebase.auth";
+import { addUser, getUser } from "../firebase/firebase.users";
+import type { AuthInfo } from "../model/user-model";
 import { validateEmail } from "../services/validators";
 import { userInfoAtom } from "../state/atoms/auth-atom";
 
@@ -19,25 +19,15 @@ const LoginPage = () => {
       setLoading(true);
       // TODO: display loading
       if (isSignup) {
-        const { uid } = await createUser(userCred);
-        await updateAuthInfo(userCred.name);
-        await addUser({
-          id: uid,
-          email: userCred.email,
-          name: userCred.name,
-        });
+        const { id } = await signUp(userCred);
         set(userInfoAtom, {
-          id: uid,
+          id,
           email: userCred.email,
           name: userCred.name,
         });
       } else {
-        const { uid } = await singIn(userCred);
-        set(userInfoAtom, {
-          id: uid,
-          email: userCred.email,
-          name: userCred.name,
-        });
+        const userInfo = await logIn(userCred);
+        set(userInfoAtom, userInfo);
       }
     } catch (error) {
       // TODO: handle error

@@ -3,17 +3,20 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { AuthInfo } from "../model/user-model";
+import type { AuthInfo, UserInfo } from "../model/user-model";
+import { addUser, getUserInfo } from "../services/user.service";
 import { auth } from "./firebase.config";
 
-export async function createUser({ email, password }: AuthInfo) {
+export async function signUp({
+  email,
+  password,
+  name,
+}: AuthInfo): Promise<UserInfo> {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    return userCredential.user;
+    await createUserWithEmailAndPassword(auth, email, password);
+    await updateAuthInfo(name);
+    // await addUser({ email, name });
+    return await addUser({ email, name });
   } catch (error) {
     // TODO: handle error
     console.error(error);
@@ -21,14 +24,10 @@ export async function createUser({ email, password }: AuthInfo) {
   }
 }
 
-export async function singIn({ email, password }: AuthInfo) {
+export async function logIn({ email, password }: AuthInfo): Promise<UserInfo> {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    return userCredential.user;
+    await signInWithEmailAndPassword(auth, email, password);
+    return await getUserInfo();
   } catch (error) {
     // TODO: handle error
     throw error;
