@@ -10,7 +10,7 @@ interface TooltipProps {
 const Tooltip: React.FC<TooltipProps> = ({ children, anchorEl, className }) => {
   return (
     <div
-      style={{ top: anchorEl.pageY + 20, right: anchorEl.pageX }}
+      style={{ top: anchorEl.pageY + 20, left: anchorEl.pageX }}
       className={`relative w-fit rounded-sm bg-white p-3 shadow ${className}`}
       onClick={(ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         ev.stopPropagation();

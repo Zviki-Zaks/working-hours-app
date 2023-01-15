@@ -51,9 +51,11 @@ const AppNav = () => {
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <AppHeader />
-      <Outlet />
+      <main className="flex-1">
+        <Outlet />
+      </main>
     </div>
   );
 };

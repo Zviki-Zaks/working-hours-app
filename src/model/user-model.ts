@@ -5,5 +5,5 @@ export interface AuthInfo {
 }
 
 export interface UserInfo extends Omit<AuthInfo, "password"> {
-  id: string;
+  id?: string;
 }
